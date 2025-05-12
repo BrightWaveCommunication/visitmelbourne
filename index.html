@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melbourne For Me</title>
+  <style>
+    body {
+      background: #f5f5f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    .container {
+      max-width: 450px;
+      margin: 2em auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.5em;
+    }
+    h1 {
+      text-align: center;
+      color: #1a237e;
+      margin-bottom: 0.5em;
+    }
+    .profiles {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+    .profile-btn {
+      padding: 1em;
+      border-radius: 10px;
+      border: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      background: #e3e6fd;
+      color: #1a237e;
+      transition: background 0.2s;
+    }
+    .profile-btn:hover {
+      background: #c5cae9;
+    }
+    .section {
+      display: none;
+      margin-bottom: 1.5em;
+    }
+    .section.active {
+      display: block;
+    }
+    .quickstart {
+      background: #f0f4c3;
+      border-radius: 10px;
+      padding: 1em;
+      margin-bottom: 2em;
+    }
+    .quickstart h2 {
+      color: #558b2f;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 1.2em;
+    }
+    .qr-demo {
+      display: flex;
+      justify-content: center;
+      margin: 2em 0 1em 0;
+    }
+    @media (max-width: 500px) {
+      .container {
+        max-width: 98vw;
+        padding: 0.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Melbourne For Me</h1>
+    <div class="quickstart">
+      <h2>Mes 30 premiers jours à Melbourne</h2>
+      <ul>
+        <li>Obtenir une carte <strong>Myki</strong> : <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Guide officiel</a></li>
+        <li>Rejoindre un groupe étudiant sur Instagram : <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a></li>
+        <li>Trouver un logement étudiant à Fitzroy ou Carlton : <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a></li>
+      </ul>
+    </div>
+    <div class="profiles">
+      <button class="profile-btn" onclick="showSection('explorer')">🌏 L'Explorateur</button>
+      <button class="profile-btn" onclick="showSection('achiever')">🎓 L'Ambitionné</button>
+      <button class="profile-btn" onclick="showSection('social')">🎉 Le Socialisateur</button>
+    </div>
+    <div id="explorer" class="section">
+      <h2>🌏 L'Explorateur</h2>
+      <ul>
+        <li>Itinéraires culturels à Melbourne</li>
+        <li>Idées de weekends (Great Ocean Road, Grampians...)</li>
+        <li>Meilleurs spots de surf autour de la ville</li>
+      </ul>
+    </div>
+    <div id="achiever" class="section">
+      <h2>🎓 L'Ambitionné</h2>
+      <ul>
+        <li>Classements des universités locales</li>
+        <li>Guides de bourses d'études</li>
+        <li>Conseils pour décrocher un stage</li>
+      </ul>
+    </div>
+    <div id="social" class="section">
+      <h2>🎉 Le Socialisateur</h2>
+      <ul>
+        <li>Agenda des soirées étudiantes</li>
+        <li>Cafés et clubs étudiants populaires</li>
+        <li>Événements à ne pas manquer</li>
+      </ul>
+    </div>
+    <div class="qr-demo">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://melbourneforme.com&size=150x150" alt="QR code de démonstration">
+    </div>
+    <p style="text-align:center; font-size:0.95em; color:#888;">Scannez le QR code pour accéder au site (remplacez l'URL par la vôtre après hébergement).</p>
+  </div>
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
