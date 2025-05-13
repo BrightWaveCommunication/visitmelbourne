@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,26 @@
       text-align: center;
       color: #1a237e;
       margin-bottom: 0.5em;
+    }
+    .lang-select {
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+      margin-bottom: 1em;
+    }
+    .lang-btn {
+      padding: 0.3em 0.9em;
+      border-radius: 7px;
+      border: 1px solid #1a237e;
+      background: #e3e6fd;
+      color: #1a237e;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: #c5cae9;
     }
     .profiles {
       display: flex;
@@ -80,54 +100,193 @@
 </head>
 <body>
   <div class="container">
-    <h1>Melbourne For Me</h1>
+    <div class="lang-select">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
+      <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+      <button class="lang-btn" onclick="setLang('pl')" id="btn-pl">PL</button>
+    </div>
+    <h1 id="title">Melbourne For Me</h1>
     <div class="quickstart">
-      <h2>Mes 30 premiers jours à Melbourne</h2>
+      <h2 id="first30-title">My First 30 Days in Melbourne</h2>
       <ul>
-        <li>Obtenir une carte <strong>Myki</strong> : <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Guide officiel</a></li>
-        <li>Rejoindre un groupe étudiant sur Instagram : <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a></li>
-        <li>Trouver un logement étudiant à Fitzroy ou Carlton : <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a></li>
+        <li id="myki"></li>
+        <li id="insta"></li>
+        <li id="housing"></li>
       </ul>
     </div>
     <div class="profiles">
-      <button class="profile-btn" onclick="showSection('explorer')">🌏 L'Explorateur</button>
-      <button class="profile-btn" onclick="showSection('achiever')">🎓 L'Ambitionné</button>
-      <button class="profile-btn" onclick="showSection('social')">🎉 Le Socialisateur</button>
+      <button class="profile-btn" onclick="showSection('explorer')" id="btn-explorer"></button>
+      <button class="profile-btn" onclick="showSection('achiever')" id="btn-achiever"></button>
+      <button class="profile-btn" onclick="showSection('social')" id="btn-social"></button>
     </div>
     <div id="explorer" class="section">
-      <h2>🌏 L'Explorateur</h2>
+      <h2 id="explorer-title"></h2>
       <ul>
-        <li>Itinéraires culturels à Melbourne</li>
-        <li>Idées de weekends (Great Ocean Road, Grampians...)</li>
-        <li>Meilleurs spots de surf autour de la ville</li>
+        <li id="explorer-1"></li>
+        <li id="explorer-2"></li>
+        <li id="explorer-3"></li>
       </ul>
     </div>
     <div id="achiever" class="section">
-      <h2>🎓 L'Ambitionné</h2>
+      <h2 id="achiever-title"></h2>
       <ul>
-        <li>Classements des universités locales</li>
-        <li>Guides de bourses d'études</li>
-        <li>Conseils pour décrocher un stage</li>
+        <li id="achiever-1"></li>
+        <li id="achiever-2"></li>
+        <li id="achiever-3"></li>
       </ul>
     </div>
     <div id="social" class="section">
-      <h2>🎉 Le Socialisateur</h2>
+      <h2 id="social-title"></h2>
       <ul>
-        <li>Agenda des soirées étudiantes</li>
-        <li>Cafés et clubs étudiants populaires</li>
-        <li>Événements à ne pas manquer</li>
+        <li id="social-1"></li>
+        <li id="social-2"></li>
+        <li id="social-3"></li>
       </ul>
     </div>
     <div class="qr-demo">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://melbourneforme.com&size=150x150" alt="QR code de démonstration">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://melbourneforme.com&size=150x150" alt="QR code demo">
     </div>
-    <p style="text-align:center; font-size:0.95em; color:#888;">Scannez le QR code pour accéder au site (remplacez l'URL par la vôtre après hébergement).</p>
+    <p style="text-align:center; font-size:0.95em; color:#888;" id="qr-note">
+      Scan the QR code to access the site (replace the URL after hosting).
+    </p>
   </div>
   <script>
+    // Traductions
+    const translations = {
+      en: {
+        title: "Melbourne For Me",
+        first30Title: "My First 30 Days in Melbourne",
+        myki: 'Get a <strong>Myki</strong> card: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Official guide</a>',
+        insta: 'Join a student Instagram group: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
+        housing: 'Find student housing in Fitzroy or Carlton: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        btnExplorer: "🌏 The Explorer",
+        btnAchiever: "🎓 The Achiever",
+        btnSocial: "🎉 The Social Bee",
+        explorerTitle: "🌏 The Explorer",
+        explorer1: "Cultural routes in Melbourne",
+        explorer2: "Weekend trip ideas (Great Ocean Road, Grampians...)",
+        explorer3: "Best surf spots near the city",
+        achieverTitle: "🎓 The Achiever",
+        achiever1: "Local university rankings",
+        achiever2: "Scholarship guides",
+        achiever3: "Tips for landing an internship",
+        socialTitle: "🎉 The Social Bee",
+        social1: "Student nightlife calendar",
+        social2: "Popular student cafés and clubs",
+        social3: "Must-attend events",
+        qrNote: "Scan the QR code to access the site (replace the URL after hosting)."
+      },
+      fr: {
+        title: "Melbourne For Me",
+        first30Title: "Mes 30 premiers jours à Melbourne",
+        myki: 'Obtenir une carte <strong>Myki</strong> : <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Guide officiel</a>',
+        insta: 'Rejoindre un groupe étudiant sur Instagram : <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
+        housing: 'Trouver un logement étudiant à Fitzroy ou Carlton : <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        btnExplorer: "🌏 L'Explorateur",
+        btnAchiever: "🎓 L'Ambitionné",
+        btnSocial: "🎉 Le Socialisateur",
+        explorerTitle: "🌏 L'Explorateur",
+        explorer1: "Itinéraires culturels à Melbourne",
+        explorer2: "Idées de weekends (Great Ocean Road, Grampians...)",
+        explorer3: "Meilleurs spots de surf autour de la ville",
+        achieverTitle: "🎓 L'Ambitionné",
+        achiever1: "Classements des universités locales",
+        achiever2: "Guides de bourses d'études",
+        achiever3: "Conseils pour décrocher un stage",
+        socialTitle: "🎉 Le Socialisateur",
+        social1: "Agenda des soirées étudiantes",
+        social2: "Cafés et clubs étudiants populaires",
+        social3: "Événements à ne pas manquer",
+        qrNote: "Scannez le QR code pour accéder au site (remplacez l'URL après hébergement)."
+      },
+      ru: {
+        title: "Мельбурн для меня",
+        first30Title: "Мои первые 30 дней в Мельбурне",
+        myki: 'Получить карту <strong>Myki</strong>: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Официальная инструкция</a>',
+        insta: 'Присоединиться к студенческой группе в Instagram: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
+        housing: 'Найти студенческое жильё в Фицрое или Карлтоне: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        btnExplorer: "🌏 Исследователь",
+        btnAchiever: "🎓 Достигатор",
+        btnSocial: "🎉 Общительный",
+        explorerTitle: "🌏 Исследователь",
+        explorer1: "Культурные маршруты по Мельбурну",
+        explorer2: "Идеи для выходных (Great Ocean Road, Grampians...)",
+        explorer3: "Лучшие места для серфинга рядом с городом",
+        achieverTitle: "🎓 Достигатор",
+        achiever1: "Рейтинги местных университетов",
+        achiever2: "Руководства по стипендиям",
+        achiever3: "Советы по поиску стажировок",
+        socialTitle: "🎉 Общительный",
+        social1: "Календарь студенческих вечеринок",
+        social2: "Популярные студенческие кафе и клубы",
+        social3: "Обязательные к посещению события",
+        qrNote: "Сканируйте QR-код для доступа к сайту (замените URL после размещения)."
+      },
+      pl: {
+        title: "Melbourne For Me",
+        first30Title: "Moje pierwsze 30 dni w Melbourne",
+        myki: 'Zdobądź kartę <strong>Myki</strong>: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Oficjalny przewodnik</a>',
+        insta: 'Dołącz do grupy studenckiej na Instagramie: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
+        housing: 'Znajdź mieszkanie studenckie w Fitzroy lub Carlton: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        btnExplorer: "🌏 Odkrywca",
+        btnAchiever: "🎓 Ambitny",
+        btnSocial: "🎉 Dusza Towarzystwa",
+        explorerTitle: "🌏 Odkrywca",
+        explorer1: "Kulturalne trasy po Melbourne",
+        explorer2: "Pomysły na weekendy (Great Ocean Road, Grampians...)",
+        explorer3: "Najlepsze miejsca do surfowania w pobliżu miasta",
+        achieverTitle: "🎓 Ambitny",
+        achiever1: "Rankingi lokalnych uniwersytetów",
+        achiever2: "Przewodniki po stypendiach",
+        achiever3: "Porady dotyczące praktyk",
+        socialTitle: "🎉 Dusza Towarzystwa",
+        social1: "Kalendarz imprez studenckich",
+        social2: "Popularne kawiarnie i kluby studenckie",
+        social3: "Wydarzenia, których nie można przegapić",
+        qrNote: "Zeskanuj kod QR, aby uzyskać dostęp do strony (zamień URL po publikacji)."
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      // Met à jour les boutons de langue
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+      // Met à jour le contenu
+      const t = translations[lang];
+      document.getElementById('title').textContent = t.title;
+      document.getElementById('first30-title').textContent = t.first30Title;
+      document.getElementById('myki').innerHTML = t.myki;
+      document.getElementById('insta').innerHTML = t.insta;
+      document.getElementById('housing').innerHTML = t.housing;
+      document.getElementById('btn-explorer').textContent = t.btnExplorer;
+      document.getElementById('btn-achiever').textContent = t.btnAchiever;
+      document.getElementById('btn-social').textContent = t.btnSocial;
+      document.getElementById('explorer-title').textContent = t.explorerTitle;
+      document.getElementById('explorer-1').textContent = t.explorer1;
+      document.getElementById('explorer-2').textContent = t.explorer2;
+      document.getElementById('explorer-3').textContent = t.explorer3;
+      document.getElementById('achiever-title').textContent = t.achieverTitle;
+      document.getElementById('achiever-1').textContent = t.achiever1;
+      document.getElementById('achiever-2').textContent = t.achiever2;
+      document.getElementById('achiever-3').textContent = t.achiever3;
+      document.getElementById('social-title').textContent = t.socialTitle;
+      document.getElementById('social-1').textContent = t.social1;
+      document.getElementById('social-2').textContent = t.social2;
+      document.getElementById('social-3').textContent = t.social3;
+      document.getElementById('qr-note').textContent = t.qrNote;
+    }
+
     function showSection(id) {
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
+
+    // Initialisation
+    setLang('en');
   </script>
 </body>
 </html>
