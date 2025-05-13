@@ -5,97 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Melbourne For Me</title>
   <style>
-    body {
-      background: #f5f5f0;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #222;
-    }
-    .container {
-      max-width: 450px;
-      margin: 2em auto;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      padding: 1.5em;
-    }
-    h1 {
-      text-align: center;
-      color: #1a237e;
-      margin-bottom: 0.5em;
-    }
-    .lang-select {
-      display: flex;
-      justify-content: center;
-      gap: 0.5em;
-      margin-bottom: 1em;
-    }
-    .lang-btn {
-      padding: 0.3em 0.9em;
-      border-radius: 7px;
-      border: 1px solid #1a237e;
-      background: #e3e6fd;
-      color: #1a237e;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.2s;
-    }
-    .lang-btn.active, .lang-btn:hover {
-      background: #c5cae9;
-    }
-    .profiles {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      margin-bottom: 2em;
-    }
-    .profile-btn {
-      padding: 1em;
-      border-radius: 10px;
-      border: none;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      background: #e3e6fd;
-      color: #1a237e;
-      transition: background 0.2s;
-    }
-    .profile-btn:hover {
-      background: #c5cae9;
-    }
-    .section {
-      display: none;
-      margin-bottom: 1.5em;
-    }
-    .section.active {
-      display: block;
-    }
-    .quickstart {
-      background: #f0f4c3;
-      border-radius: 10px;
-      padding: 1em;
-      margin-bottom: 2em;
-    }
-    .quickstart h2 {
-      color: #558b2f;
-      margin-top: 0;
-    }
-    ul {
-      padding-left: 1.2em;
-    }
-    .qr-demo {
-      display: flex;
-      justify-content: center;
-      margin: 2em 0 1em 0;
-    }
-    @media (max-width: 500px) {
-      .container {
-        max-width: 98vw;
-        padding: 0.5em;
-      }
-    }
+    body { background: #f5f5f0; font-family: Arial, sans-serif; margin: 0; padding: 0; color: #222; }
+    .container { max-width: 500px; margin: 2em auto; background: #fff; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.5em; }
+    h1 { text-align: center; color: #1a237e; margin-bottom: 0.5em; }
+    .lang-select { display: flex; justify-content: center; gap: 0.5em; margin-bottom: 1em; }
+    .lang-btn { padding: 0.3em 0.9em; border-radius: 7px; border: 1px solid #1a237e; background: #e3e6fd; color: #1a237e; font-weight: bold; cursor: pointer; font-size: 1em; transition: background 0.2s; }
+    .lang-btn.active, .lang-btn:hover { background: #c5cae9; }
+    .section-block { background: #f0f4c3; border-radius: 10px; padding: 1em; margin-bottom: 2em; }
+    .section-block h2 { color: #558b2f; margin-top: 0; }
+    .profiles { display: flex; flex-direction: column; gap: 1em; margin-bottom: 2em; }
+    .profile-btn { padding: 1em; border-radius: 10px; border: none; font-size: 1.1em; font-weight: bold; cursor: pointer; background: #e3e6fd; color: #1a237e; transition: background 0.2s; }
+    .profile-btn:hover { background: #c5cae9; }
+    .section { display: none; margin-bottom: 1.5em; }
+    .section.active { display: block; }
+    ul { padding-left: 1.2em; }
+    .qr-demo { display: flex; justify-content: center; margin: 2em 0 1em 0; }
+    .student-stories { margin-bottom: 2em; }
+    .student-video { margin-bottom: 1em; }
+    .student-video video { max-width: 100%; border-radius: 8px; }
+    .student-video span { display: block; margin-top: 0.3em; font-size: 0.96em; color: #444;}
+    @media (max-width: 500px) { .container { max-width: 98vw; padding: 0.5em; } }
   </style>
 </head>
 <body>
@@ -106,15 +35,49 @@
       <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
       <button class="lang-btn" onclick="setLang('pl')" id="btn-pl">PL</button>
     </div>
-    <h1 id="title">Melbourne For Me</h1>
-    <div class="quickstart">
-      <h2 id="first30-title">My First 30 Days in Melbourne</h2>
+    <h1 id="title"></h1>
+
+    <div class="section-block">
+      <h2 id="univ-title"></h2>
       <ul>
-        <li id="myki"></li>
-        <li id="insta"></li>
-        <li id="housing"></li>
+        <li id="univ-1"></li>
+        <li id="univ-2"></li>
+        <li id="univ-3"></li>
       </ul>
     </div>
+
+    <div class="section-block">
+      <h2 id="first30-title"></h2>
+      <ul>
+        <li id="myki"></li>
+        <li id="housing"></li>
+        <li id="neigh"></li>
+      </ul>
+    </div>
+
+    <div class="student-stories">
+      <h2 id="stories-title"></h2>
+      <div class="student-video">
+        <video controls poster="https://img.youtube.com/vi/9xwazD5SyVg/hqdefault.jpg">
+          <source src="student1.mp4" type="video/mp4">
+          <!-- Remplace par un vrai lien ou YouTube embed si besoin -->
+        </video>
+        <span id="stories-1"></span>
+      </div>
+      <div class="student-video">
+        <video controls poster="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg">
+          <source src="student2.mp4" type="video/mp4">
+        </video>
+        <span id="stories-2"></span>
+      </div>
+      <div class="student-video">
+        <video controls poster="https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg">
+          <source src="student3.mp4" type="video/mp4">
+        </video>
+        <span id="stories-3"></span>
+      </div>
+    </div>
+
     <div class="profiles">
       <button class="profile-btn" onclick="showSection('explorer')" id="btn-explorer"></button>
       <button class="profile-btn" onclick="showSection('achiever')" id="btn-achiever"></button>
@@ -147,19 +110,24 @@
     <div class="qr-demo">
       <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://melbourneforme.com&size=150x150" alt="QR code demo">
     </div>
-    <p style="text-align:center; font-size:0.95em; color:#888;" id="qr-note">
-      Scan the QR code to access the site (replace the URL after hosting).
-    </p>
+    <p style="text-align:center; font-size:0.95em; color:#888;" id="qr-note"></p>
   </div>
   <script>
-    // Traductions
     const translations = {
       en: {
         title: "Melbourne For Me",
-        first30Title: "My First 30 Days in Melbourne",
-        myki: 'Get a <strong>Myki</strong> card: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Official guide</a>',
-        insta: 'Join a student Instagram group: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
-        housing: 'Find student housing in Fitzroy or Carlton: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        univTitle: "Discover Melbourne’s Universities",
+        univ1: "University of Melbourne – A top-ranked institution with a vibrant campus.",
+        univ2: "Monash University – Renowned for research and global connections.",
+        univ3: "RMIT University – Known for innovation and city-based learning.",
+        first30Title: "Plan Your First 30 Days",
+        myki: 'Get your <strong>Myki card</strong> for public transport: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Official guide</a>',
+        housing: 'Find student housing: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>, <a href="https://www.unilodge.com.au/" target="_blank">UniLodge</a>, <a href="https://iglu.com.au/melbourne/" target="_blank">Iglu</a>',
+        neigh: 'Explore neighborhoods: Fitzroy (artsy & cafes), Carlton (student life), St Kilda (beach culture).',
+        storiesTitle: "Student Stories",
+        stories1: "Maria (Spain): My first week at University of Melbourne and finding friends.",
+        stories2: "Alexei (Russia): How I found housing in Carlton and my favorite food spots.",
+        stories3: "Zofia (Poland): Balancing studies at Monash and discovering St Kilda’s beaches.",
         btnExplorer: "🌏 The Explorer",
         btnAchiever: "🎓 The Achiever",
         btnSocial: "🎉 The Social Bee",
@@ -179,10 +147,18 @@
       },
       fr: {
         title: "Melbourne For Me",
-        first30Title: "Mes 30 premiers jours à Melbourne",
-        myki: 'Obtenir une carte <strong>Myki</strong> : <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Guide officiel</a>',
-        insta: 'Rejoindre un groupe étudiant sur Instagram : <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
-        housing: 'Trouver un logement étudiant à Fitzroy ou Carlton : <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        univTitle: "Découvrez les universités de Melbourne",
+        univ1: "University of Melbourne – Université prestigieuse avec un campus dynamique.",
+        univ2: "Monash University – Réputée pour la recherche et l’ouverture internationale.",
+        univ3: "RMIT University – Connue pour l’innovation et son campus en centre-ville.",
+        first30Title: "Planifiez vos 30 premiers jours",
+        myki: 'Obtenez votre <strong>carte Myki</strong> pour les transports : <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Guide officiel</a>',
+        housing: 'Trouvez un logement étudiant : <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>, <a href="https://www.unilodge.com.au/" target="_blank">UniLodge</a>, <a href="https://iglu.com.au/melbourne/" target="_blank">Iglu</a>',
+        neigh: 'Explorez les quartiers : Fitzroy (art & cafés), Carlton (vie étudiante), St Kilda (plage & ambiance).',
+        storiesTitle: "Témoignages étudiants",
+        stories1: "Maria (Espagne) : Ma première semaine à l’Université de Melbourne et comment je me suis fait des amis.",
+        stories2: "Alexei (Russie) : Comment j’ai trouvé un logement à Carlton et mes adresses préférées.",
+        stories3: "Zofia (Pologne) : Étudier à Monash et découvrir les plages de St Kilda.",
         btnExplorer: "🌏 L'Explorateur",
         btnAchiever: "🎓 L'Ambitionné",
         btnSocial: "🎉 Le Socialisateur",
@@ -202,10 +178,18 @@
       },
       ru: {
         title: "Мельбурн для меня",
-        first30Title: "Мои первые 30 дней в Мельбурне",
-        myki: 'Получить карту <strong>Myki</strong>: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Официальная инструкция</a>',
-        insta: 'Присоединиться к студенческой группе в Instagram: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
-        housing: 'Найти студенческое жильё в Фицрое или Карлтоне: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        univTitle: "Откройте для себя университеты Мельбурна",
+        univ1: "University of Melbourne – Один из лучших вузов с яркой студенческой жизнью.",
+        univ2: "Monash University – Известен исследованиями и международными связями.",
+        univ3: "RMIT University – Инновации и обучение в центре города.",
+        first30Title: "Планируйте свои первые 30 дней",
+        myki: 'Получите карту <strong>Myki</strong> для транспорта: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Официальная инструкция</a>',
+        housing: 'Найдите жильё для студентов: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>, <a href="https://www.unilodge.com.au/" target="_blank">UniLodge</a>, <a href="https://iglu.com.au/melbourne/" target="_blank">Iglu</a>',
+        neigh: 'Изучите районы: Фицрой (арт и кафе), Карлтон (студенческая жизнь), Сент-Килда (пляж и развлечения).',
+        storiesTitle: "Истории студентов",
+        stories1: "Мария (Испания): Моя первая неделя в University of Melbourne и новые друзья.",
+        stories2: "Алексей (Россия): Как я нашел жилье в Карлтоне и любимые места для еды.",
+        stories3: "Зофия (Польша): Учёба в Monash и открытия пляжей St Kilda.",
         btnExplorer: "🌏 Исследователь",
         btnAchiever: "🎓 Достигатор",
         btnSocial: "🎉 Общительный",
@@ -225,10 +209,18 @@
       },
       pl: {
         title: "Melbourne For Me",
-        first30Title: "Moje pierwsze 30 dni w Melbourne",
-        myki: 'Zdobądź kartę <strong>Myki</strong>: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Oficjalny przewodnik</a>',
-        insta: 'Dołącz do grupy studenckiej na Instagramie: <a href="https://www.instagram.com/explore/tags/melbourneuni/" target="_blank">#melbourneuni</a>',
-        housing: 'Znajdź mieszkanie studenckie w Fitzroy lub Carlton: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>',
+        univTitle: "Odkryj uniwersytety w Melbourne",
+        univ1: "University of Melbourne – Uczelnia z najwyższej półki i tętniący życiem kampus.",
+        univ2: "Monash University – Słynie z badań naukowych i międzynarodowych kontaktów.",
+        univ3: "RMIT University – Innowacje i nauka w centrum miasta.",
+        first30Title: "Zaplanuj pierwsze 30 dni",
+        myki: 'Zdobądź <strong>kartę Myki</strong> na transport: <a href="https://www.ptv.vic.gov.au/tickets/myki/" target="_blank">Oficjalny przewodnik</a>',
+        housing: 'Znajdź zakwaterowanie studenckie: <a href="https://www.flatmates.com.au/" target="_blank">Flatmates</a>, <a href="https://www.unilodge.com.au/" target="_blank">UniLodge</a>, <a href="https://iglu.com.au/melbourne/" target="_blank">Iglu</a>',
+        neigh: 'Odkrywaj dzielnice: Fitzroy (sztuka i kawiarnie), Carlton (życie studenckie), St Kilda (plaża i rozrywka).',
+        storiesTitle: "Historie studentów",
+        stories1: "Maria (Hiszpania): Mój pierwszy tydzień na University of Melbourne i nowi znajomi.",
+        stories2: "Aleksiej (Rosja): Jak znalazłem mieszkanie w Carlton i moje ulubione miejsca.",
+        stories3: "Zofia (Polska): Studia na Monash i odkrywanie plaż St Kilda.",
         btnExplorer: "🌏 Odkrywca",
         btnAchiever: "🎓 Ambitny",
         btnSocial: "🎉 Dusza Towarzystwa",
@@ -252,16 +244,22 @@
 
     function setLang(lang) {
       currentLang = lang;
-      // Met à jour les boutons de langue
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('btn-' + lang).classList.add('active');
-      // Met à jour le contenu
       const t = translations[lang];
       document.getElementById('title').textContent = t.title;
+      document.getElementById('univ-title').textContent = t.univTitle;
+      document.getElementById('univ-1').textContent = t.univ1;
+      document.getElementById('univ-2').textContent = t.univ2;
+      document.getElementById('univ-3').textContent = t.univ3;
       document.getElementById('first30-title').textContent = t.first30Title;
       document.getElementById('myki').innerHTML = t.myki;
-      document.getElementById('insta').innerHTML = t.insta;
       document.getElementById('housing').innerHTML = t.housing;
+      document.getElementById('neigh').textContent = t.neigh;
+      document.getElementById('stories-title').textContent = t.storiesTitle;
+      document.getElementById('stories-1').textContent = t.stories1;
+      document.getElementById('stories-2').textContent = t.stories2;
+      document.getElementById('stories-3').textContent = t.stories3;
       document.getElementById('btn-explorer').textContent = t.btnExplorer;
       document.getElementById('btn-achiever').textContent = t.btnAchiever;
       document.getElementById('btn-social').textContent = t.btnSocial;
@@ -285,7 +283,6 @@
       document.getElementById(id).classList.add('active');
     }
 
-    // Initialisation
     setLang('en');
   </script>
 </body>
