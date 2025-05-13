@@ -3,270 +3,365 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Melbourne for Teens</title>
+  <title>Melbourne for Young Adults</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f0; margin: 0; padding: 0; color: #222; }
-    .container { max-width: 800px; margin: 2em auto; background: #fff; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2em; }
-    h1 { text-align: center; color: #1a237e; margin-bottom: 1.2em; }
-    .lang-select { display: flex; justify-content: center; gap: 0.5em; margin-bottom: 1.5em; }
-    .lang-btn { padding: 0.3em 0.9em; border-radius: 7px; border: 1px solid #1a237e; background: #e3e6fd; color: #1a237e; font-weight: bold; cursor: pointer; font-size: 1em; transition: background 0.2s; }
-    .lang-btn.active, .lang-btn:hover { background: #c5cae9; }
-    .tabs { display: flex; border-bottom: 2px solid #e3e6fd; margin-bottom: 2em; }
-    .tab-btn {
-      flex: 1; padding: 1em; background: #e3e6fd; border: none; border-radius: 12px 12px 0 0;
-      cursor: pointer; font-weight: bold; color: #1a237e; font-size: 1.1em; transition: background 0.2s;
-      margin-right: 0.5em;
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9fafb; margin: 0; padding: 0; color: #222; }
+    .container { max-width: 800px; margin: 2em auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 2.5em; }
+    h1 { text-align: center; color: #1a237e; margin-bottom: 1.5em; font-weight: 700; }
+    .lang-select { display: flex; justify-content: center; gap: 0.6em; margin-bottom: 1.5em; }
+    .lang-btn {
+      padding: 0.4em 1em; border-radius: 8px; border: 2px solid #1a237e; background: #e8eaf6; color: #1a237e;
+      font-weight: 600; cursor: pointer; font-size: 1em; transition: background 0.3s, color 0.3s;
     }
-    .tab-btn.active, .tab-btn:hover { background: #c5cae9; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .profile-list { display: flex; flex-wrap: wrap; gap: 2em; justify-content: space-around; }
-    .profile-card {
-      background: #f0f4c3; border-radius: 10px; padding: 1.2em; width: 230px; box-shadow: 0 1px 4px #e3e6fd;
+    .lang-btn.active, .lang-btn:hover {
+      background: #1a237e; color: #fff; border-color: #1a237e;
+    }
+    .tabs {
+      display: flex; border-bottom: 3px solid #c5cae9; margin-bottom: 2em;
+      user-select: none;
+    }
+    .tab-btn {
+      flex: 1; padding: 1.2em; background: #e8eaf6; border: none; border-radius: 12px 12px 0 0;
+      cursor: pointer; font-weight: 700; color: #1a237e; font-size: 1.15em; transition: background 0.3s;
+      margin-right: 0.5em;
       text-align: center;
     }
-    .profile-card h3 { margin-top: 0; }
-    .univ-list { list-style: none; padding: 0; }
-    .univ-item { background: #e3e6fd; border-radius: 8px; margin-bottom: 1em; padding: 1em; }
-    .univ-item a { color: #1a237e; text-decoration: underline; }
-    .temoignage { background: #f0f4c3; border-radius: 10px; padding: 1em; margin-bottom: 1.5em; }
-    .temoignage strong { color: #1a237e; }
-    .temoignage a { color: #1a237e; text-decoration: underline; font-size: 0.97em; }
-    .section-title { color: #1a237e; margin-top: 2em; margin-bottom: 0.5em; font-size: 1.2em; }
-    ul.fun-list { margin-top: 0.5em; margin-bottom: 1.5em; }
-    .tip-box { background: #e3e6fd; border-radius: 8px; padding: 1em; margin-bottom: 1.2em; }
+    .tab-btn:last-child { margin-right: 0; }
+    .tab-btn.active, .tab-btn:hover {
+      background: #3949ab; color: #fff;
+      box-shadow: 0 -4px 8px rgba(57,73,171,0.3);
+    }
+    .tab-content { display: none; animation: fadeIn 0.5s ease forwards; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .profile-list {
+      display: flex; flex-wrap: wrap; gap: 2em; justify-content: space-around;
+    }
+    .profile-card {
+      background: #e8eaf6; border-radius: 14px; padding: 1.5em; width: 240px;
+      box-shadow: 0 4px 10px rgba(57,73,171,0.15); text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(57,73,171,0.3);
+    }
+    .profile-card h3 {
+      margin-top: 0; margin-bottom: 0.8em; font-size: 1.3em; color: #283593;
+    }
+    .profile-card ul {
+      padding-left: 1.2em; text-align: left; font-size: 1em; color: #3949ab;
+    }
+    .univ-list {
+      list-style: none; padding: 0; margin-top: 0;
+    }
+    .univ-item {
+      background: #e8eaf6; border-radius: 12px; margin-bottom: 1.2em; padding: 1.2em;
+      box-shadow: 0 3px 8px rgba(57,73,171,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .univ-item:hover {
+      box-shadow: 0 6px 16px rgba(57,73,171,0.2);
+    }
+    .univ-item strong {
+      font-size: 1.15em; color: #283593;
+    }
+    .univ-item em {
+      display: block; margin: 0.5em 0 0.8em 0; color: #3949ab;
+      font-style: normal; font-weight: 600;
+    }
+    .univ-item a {
+      color: #1a237e; text-decoration: underline; font-weight: 600;
+    }
+    .temoignage {
+      background: #e8eaf6; border-radius: 12px; padding: 1.5em; margin-bottom: 1.8em;
+      box-shadow: 0 3px 8px rgba(57,73,171,0.1);
+      font-size: 1em; color: #3949ab;
+      line-height: 1.5;
+    }
+    .temoignage strong {
+      color: #283593; font-weight: 700; font-size: 1.1em;
+      display: block; margin-bottom: 0.6em;
+    }
+    .temoignage a {
+      color: #1a237e; text-decoration: underline; font-weight: 600;
+      margin-top: 0.8em; display: inline-block;
+    }
+    .section-title {
+      color: #1a237e; margin-top: 2em; margin-bottom: 1em; font-size: 1.4em; font-weight: 700;
+      border-bottom: 3px solid #3949ab; padding-bottom: 0.3em;
+    }
+    .tip-box {
+      background: #c5cae9; border-radius: 12px; padding: 1.3em; margin-top: 1.5em;
+      font-style: italic; color: #283593; font-weight: 600;
+      box-shadow: inset 0 0 8px rgba(57,73,171,0.2);
+    }
+    ul.fun-list {
+      margin-top: 0.5em; margin-bottom: 1.5em; padding-left: 1.2em; color: #3949ab;
+    }
+    ul.fun-list li {
+      margin-bottom: 0.8em;
+      font-weight: 600;
+    }
     @media (max-width: 800px) {
       .container { padding: 1em; }
       .profile-list { flex-direction: column; align-items: center; }
       .profile-card { width: 95%; }
+      .tab-btn { font-size: 1em; padding: 0.9em; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="lang-select">
-      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
-      <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
-      <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
-      <button class="lang-btn" onclick="setLang('pl')" id="btn-pl">PL</button>
+    <div class="lang-select" role="navigation" aria-label="Language selection">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en" aria-pressed="true">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')" id="btn-fr" aria-pressed="false">FR</button>
+      <button class="lang-btn" onclick="setLang('ru')" id="btn-ru" aria-pressed="false">RU</button>
+      <button class="lang-btn" onclick="setLang('pl')" id="btn-pl" aria-pressed="false">PL</button>
     </div>
-    <h1 id="title"></h1>
-    <div class="tabs">
-      <button class="tab-btn active" onclick="showTab(0)" id="tab-title-1"></button>
-      <button class="tab-btn" onclick="showTab(1)" id="tab-title-2"></button>
-      <button class="tab-btn" onclick="showTab(2)" id="tab-title-3"></button>
-      <button class="tab-btn" onclick="showTab(3)" id="tab-title-4"></button>
+    <h1 id="title" tabindex="0"></h1>
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" onclick="showTab(0)" id="tab-title-1" role="tab" aria-selected="true" aria-controls="tab-content-1" tabindex="0"></button>
+      <button class="tab-btn" onclick="showTab(1)" id="tab-title-2" role="tab" aria-selected="false" aria-controls="tab-content-2" tabindex="-1"></button>
+      <button class="tab-btn" onclick="showTab(2)" id="tab-title-3" role="tab" aria-selected="false" aria-controls="tab-content-3" tabindex="-1"></button>
+      <button class="tab-btn" onclick="showTab(3)" id="tab-title-4" role="tab" aria-selected="false" aria-controls="tab-content-4" tabindex="-1"></button>
     </div>
 
     <!-- Tab 1: Student Profiles -->
-    <div class="tab-content active" id="tab-content-1">
+    <section class="tab-content active" id="tab-content-1" role="tabpanel" aria-labelledby="tab-title-1" tabindex="0">
       <div class="section-title" id="profiles-title"></div>
       <div class="profile-list">
-        <div class="profile-card">
+        <article class="profile-card" tabindex="0">
           <h3 id="profile1-title"></h3>
           <ul id="profile1-list"></ul>
-        </div>
-        <div class="profile-card">
+        </article>
+        <article class="profile-card" tabindex="0">
           <h3 id="profile2-title"></h3>
           <ul id="profile2-list"></ul>
-        </div>
-        <div class="profile-card">
+        </article>
+        <article class="profile-card" tabindex="0">
           <h3 id="profile3-title"></h3>
           <ul id="profile3-list"></ul>
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
 
     <!-- Tab 2: Universities -->
-    <div class="tab-content" id="tab-content-2">
+    <section class="tab-content" id="tab-content-2" role="tabpanel" aria-labelledby="tab-title-2" tabindex="0">
       <div class="section-title" id="univ-title"></div>
       <ul class="univ-list" id="univ-list"></ul>
       <div class="tip-box" id="univ-tip"></div>
-    </div>
+    </section>
 
-    <!-- Tab 3: Student Life & Fun -->
-    <div class="tab-content" id="tab-content-3">
+    <!-- Tab 3: Teen Life & Fun -->
+    <section class="tab-content" id="tab-content-3" role="tabpanel" aria-labelledby="tab-title-3" tabindex="0">
       <div class="section-title" id="life-title"></div>
       <ul class="fun-list" id="fun-list"></ul>
       <div class="tip-box" id="life-tips"></div>
-    </div>
+    </section>
 
     <!-- Tab 4: Testimonials -->
-    <div class="tab-content" id="tab-content-4">
+    <section class="tab-content" id="tab-content-4" role="tabpanel" aria-labelledby="tab-title-4" tabindex="0">
       <div class="section-title" id="testimonials-title"></div>
       <div id="testimonials"></div>
-    </div>
+    </section>
   </div>
+
   <script>
     const translations = {
       en: {
-        title: "Melbourne for Teens",
+        title: "Melbourne for Young Adults",
         tabTitles: [
           "Student Profiles",
           "Melbourne's Universities",
-          "Teen Life & Fun",
+          "Life & Fun in Melbourne",
           "Real Stories"
         ],
-        profilesTitle: "Which Student Are You?",
+        profilesTitle: "Find Your Student Style",
         profiles: [
           {
             title: "🌏 The Explorer",
             items: [
-              "Wants to try surfing, street art, and Aussie food",
-              "Loves discovering new neighborhoods and making friends from everywhere",
-              "Dreams of weekend trips to the beach or the mountains"
+              "Passionate about discovering new cultures and places",
+              "Enjoys weekend trips to beaches, mountains, and festivals",
+              "Loves meeting new people and trying local foods"
             ]
           },
           {
             title: "🎓 The Achiever",
             items: [
-              "Aims for top grades and wants to boost their CV",
-              "Interested in scholarships, internships, and cool science or tech clubs",
-              "Wants to study in a world-class university and learn in English"
+              "Focused on academic success and career goals",
+              "Seeks internships, scholarships, and networking opportunities",
+              "Wants to build skills and experience for the future"
             ]
           },
           {
-            title: "🎉 The Socializer",
+            title: "🎉 The Social Butterfly",
             items: [
-              "Loves parties, concerts, and meeting new people",
-              "Always up for a café, a club, or a festival",
-              "Wants to join student associations and make friends for life"
+              "Enjoys vibrant social life with friends and events",
+              "Active in clubs, parties, and cultural activities",
+              "Balances fun with studies and personal growth"
             ]
           }
         ],
-        univTitle: "Melbourne's Top Universities",
+        univTitle: "Top Universities in Melbourne",
         universities: [
           {
             name: "University of Melbourne",
-            strengths: "Australia's #1 uni, huge campus, tons of clubs and events, great international student support.",
+            strengths: "Australia’s leading university with a global reputation, diverse programs, and excellent student support.",
             link: "https://www.unimelb.edu.au/"
           },
           {
             name: "Monash University",
-            strengths: "Awesome for science, medicine, and engineering. Super modern, lots of exchange programs.",
+            strengths: "Strong in research and innovation, with modern campuses and international opportunities.",
             link: "https://www.monash.edu/"
           },
           {
             name: "RMIT University",
-            strengths: "Right in the city, famous for design, tech, and innovation. Real-world projects and internships.",
+            strengths: "Known for design, technology, and industry connections in the heart of Melbourne.",
             link: "https://www.rmit.edu.au/"
           },
           {
             name: "Swinburne University of Technology",
-            strengths: "Great for IT, creative arts, and engineering. Friendly campus, lots of practical experience.",
+            strengths: "Offers practical, career-focused programs in IT, engineering, and creative arts.",
             link: "https://www.swinburne.edu.au/"
           }
         ],
-        univTip: "Tip: You can apply for exchange or study abroad even if you're still in high school! Check each university's website for teen-friendly summer programs and language courses.",
-        lifeTitle: "Teen Life in Melbourne: What’s Cool?",
+        univTip: "Tip: Explore summer schools, exchange programs, and pathway courses designed for young adults to boost your skills and experience.",
+        lifeTitle: "Living the Melbourne Life",
         funList: [
-          "Try surfing at St Kilda Beach or skateboarding at Riverslide Skate Park.",
-          "Join a music, drama, or sports club at your school or in your neighborhood.",
-          "Hang out in Fitzroy for street art, vintage shops, and cool cafés.",
-          "Go to a footy match (Aussie Rules Football) – it’s a must!",
-          "Explore Luna Park, Melbourne Zoo, or the city’s arcades with friends.",
-          "Check out local festivals: Moomba, White Night, or the Melbourne International Film Festival.",
-          "Work part-time: Many Aussie teens have jobs in cafés or shops (great for pocket money and English!)."
+          "Explore diverse neighborhoods like Fitzroy, St Kilda, and Carlton.",
+          "Attend music festivals, art shows, and sports events.",
+          "Join student clubs, volunteer, or try part-time work.",
+          "Discover Melbourne’s vibrant café culture and nightlife.",
+          "Take weekend trips to the Great Ocean Road or Yarra Valley."
         ],
-        lifeTips: "School days are often shorter than in Europe, so you have more time for hobbies and friends! Don’t be shy-join clubs, say yes to outings, and follow student groups on Instagram for all the best events and meet-ups.",
-        testimonialsTitle: "Real Stories from Teens in Melbourne",
+        lifeTips: "Balance is key: manage your studies, social life, and personal growth. Use public transport with a Myki card and connect with student groups online for the best local tips.",
+        testimonialsTitle: "Voices of Young Adults in Melbourne",
         testimonials: [
           {
-            name: "Lucas, 17 – Exchange Student",
-            text: "Living with a host family was amazing! They showed me the best places in Melbourne and helped me improve my English fast. School was different, but I made friends from all over the world.",
+            name: "Lucas, 22 – International Student",
+            text: "Melbourne gave me the chance to grow academically and personally. The city’s energy and diversity are inspiring, and I made lifelong friends from all over the world.",
             link: "https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/",
-            linkText: "Read more"
+            linkText: "Read Lucas's story"
           },
           {
-            name: "Sophie, 16 – High School Year",
-            text: "Classes finish early, so I could join the soccer team and a music club. I loved the freedom and the chance to travel on weekends. Melbourne is never boring!",
+            name: "Sophie, 20 – Exchange Program",
+            text: "Studying in Melbourne opened doors to amazing internships and cultural experiences. The support from the university and local community made everything easier.",
             link: "https://www.studyexperience.fr/mes-etudes-a-melbourne/",
-            linkText: "Read more"
+            linkText: "Read Sophie’s story"
           },
           {
-            name: "Alex, 17 – Summer Program",
-            text: "I joined a robotics camp at Monash and it was awesome! The city is super safe, and public transport makes it easy to explore.",
+            name: "Alex, 24 – Graduate Student",
+            text: "Balancing work and study was challenging but rewarding. Melbourne’s vibrant social scene helped me stay motivated and connected.",
             link: "https://www.monash.edu/study-abroad/outbound/exchange",
-            linkText: "See more"
+            linkText: "Learn about exchange programs"
           },
           {
-            name: "Mia, 17 – Part-Time Job",
-            text: "I worked in a café after school, which helped me become more independent and confident. Balancing work and school was tough at first, but I learned a lot.",
+            name: "Mia, 21 – Part-Time Worker",
+            text: "Working part-time while studying taught me independence and time management. Melbourne is a city full of opportunities for young adults.",
             link: "https://aifs.gov.au/growing-australia/research/research-snapshots/adolescents-combining-school-and-part-time-employment",
-            linkText: "Learn about teen jobs"
+            linkText: "Learn about student jobs"
           }
         ]
-      },
-      // You can add FR, RU, PL translations here as needed
+      }
+      // Add other languages (fr, ru, pl) here as needed, following the same structure.
     };
 
     let currentLang = 'en';
 
     function setLang(lang) {
       currentLang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + lang).classList.add('active');
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      const activeBtn = document.getElementById('btn-' + lang);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-pressed', 'true');
+      }
       const t = translations[lang] || translations['en'];
       document.getElementById('title').textContent = t.title;
       t.tabTitles.forEach((tab, i) => {
-        document.getElementById('tab-title-' + (i + 1)).textContent = tab;
+        const tabBtn = document.getElementById('tab-title-' + (i + 1));
+        if (tabBtn) tabBtn.textContent = tab;
       });
-      document.getElementById('profiles-title').textContent = t.profilesTitle;
-      t.profiles.forEach((profile, i) => {
-        document.getElementById('profile' + (i + 1) + '-title').textContent = profile.title;
-        const ul = document.getElementById('profile' + (i + 1) + '-list');
-        ul.innerHTML = "";
-        profile.items.forEach(item => {
+      if (t.profilesTitle) document.getElementById('profiles-title').textContent = t.profilesTitle;
+      if (t.profiles) {
+        t.profiles.forEach((profile, i) => {
+          const titleEl = document.getElementById('profile' + (i + 1) + '-title');
+          const listEl = document.getElementById('profile' + (i + 1) + '-list');
+          if (titleEl) titleEl.textContent = profile.title;
+          if (listEl) {
+            listEl.innerHTML = '';
+            profile.items.forEach(item => {
+              const li = document.createElement('li');
+              li.textContent = item;
+              listEl.appendChild(li);
+            });
+          }
+        });
+      }
+      if (t.univTitle) document.getElementById('univ-title').textContent = t.univTitle;
+      const univList = document.getElementById('univ-list');
+      if (univList && t.universities) {
+        univList.innerHTML = '';
+        t.universities.forEach(u => {
+          const li = document.createElement('li');
+          li.className = 'univ-item';
+          li.innerHTML = `<strong>${u.name}</strong><br><em>${u.strengths}</em><br><a href="${u.link}" target="_blank" rel="noopener noreferrer">Official website</a>`;
+          univList.appendChild(li);
+        });
+      }
+      if (t.univTip) document.getElementById('univ-tip').textContent = t.univTip || '';
+      if (t.lifeTitle) document.getElementById('life-title').textContent = t.lifeTitle;
+      const funList = document.getElementById('fun-list');
+      if (funList && t.funList) {
+        funList.innerHTML = '';
+        t.funList.forEach(item => {
           const li = document.createElement('li');
           li.textContent = item;
-          ul.appendChild(li);
+          funList.appendChild(li);
         });
-      });
-      document.getElementById('univ-title').textContent = t.univTitle;
-      const univList = document.getElementById('univ-list');
-      univList.innerHTML = "";
-      t.universities.forEach(u => {
-        const li = document.createElement('li');
-        li.className = "univ-item";
-        li.innerHTML = `<strong>${u.name}</strong><br>
-          <em>${u.strengths}</em><br>
-          <a href="${u.link}" target="_blank">Official website</a>`;
-        univList.appendChild(li);
-      });
-      document.getElementById('univ-tip').textContent = t.univTip;
-      document.getElementById('life-title').textContent = t.lifeTitle;
-      const funList = document.getElementById('fun-list');
-      funList.innerHTML = "";
-      t.funList.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        funList.appendChild(li);
-      });
-      document.getElementById('life-tips').textContent = t.lifeTips;
-      document.getElementById('testimonials-title').textContent = t.testimonialsTitle;
+      }
+      if (t.lifeTips) document.getElementById('life-tips').textContent = t.lifeTips || '';
+      if (t.testimonialsTitle) document.getElementById('testimonials-title').textContent = t.testimonialsTitle;
       const testDiv = document.getElementById('testimonials');
-      testDiv.innerHTML = "";
-      t.testimonials.forEach(test => {
-        const div = document.createElement('div');
-        div.className = "temoignage";
-        div.innerHTML = `<strong>${test.name}</strong><br>
-          ${test.text}<br>
-          <a href="${test.link}" target="_blank">${test.linkText}</a>`;
-        testDiv.appendChild(div);
-      });
+      if (testDiv && t.testimonials) {
+        testDiv.innerHTML = '';
+        t.testimonials.forEach(test => {
+          const div = document.createElement('div');
+          div.className = 'temoignage';
+          div.innerHTML = `<strong>${test.name}</strong><br>${test.text}<br><a href="${test.link}" target="_blank" rel="noopener noreferrer">${test.linkText}</a>`;
+          testDiv.appendChild(div);
+        });
+      }
     }
 
     function showTab(idx) {
-      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i === idx);
+      const tabs = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach((btn, i) => {
+        const selected = (i === idx);
+        btn.classList.toggle('active', selected);
+        btn.setAttribute('aria-selected', selected ? 'true' : 'false');
+        btn.tabIndex = selected ? 0 : -1;
+        contents[i].classList.toggle('active', selected);
       });
-      document.querySelectorAll('.tab-content').forEach((tab, i) => {
-        tab.classList.toggle('active', i === idx);
-      });
+      // Focus first heading in active tab for accessibility
+      const activeContent = document.querySelector('.tab-content.active');
+      if (activeContent) {
+        activeContent.focus();
+      }
     }
 
-    // Initialisation
+    // Initialize site
     setLang('en');
+    showTab(0);
   </script>
 </body>
 </html>
