@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Étudier à Melbourne</title>
+  <title>Study in Melbourne</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f5f5f0; margin: 0; padding: 0; color: #222; }
     .container { max-width: 700px; margin: 2em auto; background: #fff; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2em; }
     h1 { text-align: center; color: #1a237e; margin-bottom: 1.5em; }
+    .lang-select { display: flex; justify-content: center; gap: 0.5em; margin-bottom: 1.5em; }
+    .lang-btn { padding: 0.3em 0.9em; border-radius: 7px; border: 1px solid #1a237e; background: #e3e6fd; color: #1a237e; font-weight: bold; cursor: pointer; font-size: 1em; transition: background 0.2s; }
+    .lang-btn.active, .lang-btn:hover { background: #c5cae9; }
     .tabs { display: flex; border-bottom: 2px solid #e3e6fd; margin-bottom: 2em; }
     .tab-btn {
       flex: 1; padding: 1em; background: #e3e6fd; border: none; border-radius: 12px 12px 0 0;
@@ -38,99 +41,437 @@
 </head>
 <body>
   <div class="container">
-    <h1>Étudier à Melbourne</h1>
+    <div class="lang-select">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
+      <button class="lang-btn" onclick="setLang('ru')" id="btn-ru">RU</button>
+      <button class="lang-btn" onclick="setLang('pl')" id="btn-pl">PL</button>
+    </div>
+    <h1 id="title"></h1>
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab(0)">Profils d’étudiants</button>
-      <button class="tab-btn" onclick="showTab(1)">Universités de Melbourne</button>
-      <button class="tab-btn" onclick="showTab(2)">Témoignages d’étudiants</button>
+      <button class="tab-btn active" onclick="showTab(0)" id="tab-title-1"></button>
+      <button class="tab-btn" onclick="showTab(1)" id="tab-title-2"></button>
+      <button class="tab-btn" onclick="showTab(2)" id="tab-title-3"></button>
     </div>
 
-    <!-- Onglet 1 : Profils -->
-    <div class="tab-content active">
+    <!-- Tab 1: Student Profiles -->
+    <div class="tab-content active" id="tab-content-1">
       <div class="profile-list">
         <div class="profile-card">
-          <h3>🌏 L’Explorateur</h3>
-          <ul>
-            <li>Découvre la culture locale et les quartiers branchés</li>
-            <li>Participe à des excursions et explore la nature autour de Melbourne</li>
-            <li>Adore les sorties le weekend (Great Ocean Road, St Kilda...)</li>
-          </ul>
+          <h3 id="profile1-title"></h3>
+          <ul id="profile1-list"></ul>
         </div>
         <div class="profile-card">
-          <h3>🎓 L’Ambitieux</h3>
-          <ul>
-            <li>Passionné par la réussite académique</li>
-            <li>Intéressé par les classements, les bourses et les stages</li>
-            <li>Veut se construire un réseau professionnel international</li>
-          </ul>
+          <h3 id="profile2-title"></h3>
+          <ul id="profile2-list"></ul>
         </div>
         <div class="profile-card">
-          <h3>🎉 Le Socialisateur</h3>
-          <ul>
-            <li>Adore rencontrer des étudiants du monde entier</li>
-            <li>Sort souvent dans les cafés, clubs et événements étudiants</li>
-            <li>Participe à la vie associative et aux soirées du campus</li>
-          </ul>
+          <h3 id="profile3-title"></h3>
+          <ul id="profile3-list"></ul>
         </div>
       </div>
     </div>
 
-    <!-- Onglet 2 : Universités -->
-    <div class="tab-content">
-      <ul class="univ-list">
-        <li class="univ-item">
-          <strong>University of Melbourne</strong><br>
-          <em>Points forts :</em> Classée parmi les meilleures universités du monde, campus dynamique, large choix de filières, forte aide à l’intégration.<br>
-          <a href="https://www.unimelb.edu.au/" target="_blank">Site officiel</a>
-        </li>
-        <li class="univ-item">
-          <strong>Monash University</strong><br>
-          <em>Points forts :</em> Excellente réputation en recherche, campus modernes, nombreuses opportunités internationales, vie étudiante très animée.<br>
-          <a href="https://www.monash.edu/" target="_blank">Site officiel</a>
-        </li>
-        <li class="univ-item">
-          <strong>RMIT University</strong><br>
-          <em>Points forts :</em> Spécialisée dans l’innovation, l’ingénierie et le design, campus en plein centre-ville, liens forts avec les entreprises.<br>
-          <a href="https://www.rmit.edu.au/" target="_blank">Site officiel</a>
-        </li>
-        <li class="univ-item">
-          <strong>Swinburne University of Technology</strong><br>
-          <em>Points forts :</em> Excellente pour l’informatique, l’ingénierie et le design, approche pratique des études, campus accueillant.<br>
-          <a href="https://www.swinburne.edu.au/" target="_blank">Site officiel</a>
-        </li>
-      </ul>
+    <!-- Tab 2: Universities -->
+    <div class="tab-content" id="tab-content-2">
+      <ul class="univ-list" id="univ-list"></ul>
     </div>
 
-    <!-- Onglet 3 : Témoignages -->
-    <div class="tab-content">
-      <div class="temoignage">
-        <strong>Kyota – Swinburne University</strong><br>
-        « Les professeurs australiens adorent parler avec des étudiants étrangers, on se sent très vite intégré. Le travail demandé est plus chronophage qu’en France, mais on a plus de temps libre. J’ai adoré l’ambiance multiculturelle et les excursions le week-end. »<br>
-        <a href="https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/" target="_blank">Lire le témoignage complet</a>
-      </div>
-      <div class="temoignage">
-        <strong>Céline – University of Melbourne</strong><br>
-        « Le campus est immense, tout est à disposition : pharmacie, banque, snacks, bibliothèques… L’université propose beaucoup d’aide pour s’installer et se loger. J’ai rencontré des étudiants du monde entier, c’est très enrichissant. »<br>
-        <a href="https://www.studyexperience.fr/mes-etudes-a-melbourne/" target="_blank">Lire le témoignage complet</a>
-      </div>
-      <div class="temoignage">
-        <strong>Mody – University of Melbourne</strong><br>
-        « L’université de Melbourne propose des navettes gratuites pour les nouveaux arrivants, des logements étudiants bien situés, et de nombreux événements pour s’intégrer. La ville est très diverse et propice aux rencontres internationales. »<br>
-        <a href="https://international.pantheonsorbonne.fr/sites/default/files/2023-02/Mody_Australie_0.pdf" target="_blank">Lire le témoignage complet (PDF)</a>
-      </div>
-      <div class="temoignage">
-        <strong>Élodie – Séjour linguistique à Melbourne</strong><br>
-        « J’ai choisi Melbourne pour son ambiance, ses quartiers dynamiques et sa réputation de ville la plus agréable à vivre au monde. Les rencontres et la vie sur place sont inoubliables. »<br>
-        <a href="https://www.voyage-langue.com/blog/temoignages/temoignage-elodie-sejour-melbourne/" target="_blank">Lire le témoignage complet</a>
-      </div>
-      <div class="temoignage">
-        <strong>Sophie – Échange à Melbourne</strong><br>
-        « J’ai adoré la vie étudiante, l’intégration facile, et les possibilités de découvrir la ville et ses environs. »<br>
-        <a href="https://www.youtube.com/watch?v=6WwcqVdUN1o" target="_blank">Voir le témoignage vidéo</a>
-      </div>
+    <!-- Tab 3: Testimonials -->
+    <div class="tab-content" id="tab-content-3">
+      <div id="testimonials"></div>
     </div>
   </div>
   <script>
+    // Traductions et contenus multilingues
+    const translations = {
+      en: {
+        title: "Study in Melbourne",
+        tabTitles: ["Student Profiles", "Melbourne Universities", "Student Testimonials"],
+        profiles: [
+          {
+            title: "🌏 The Explorer",
+            items: [
+              "Discovers local culture and trendy neighborhoods",
+              "Loves excursions and exploring nature around Melbourne",
+              "Enjoys weekend trips (Great Ocean Road, St Kilda...)"
+            ]
+          },
+          {
+            title: "🎓 The Achiever",
+            items: [
+              "Passionate about academic success",
+              "Interested in rankings, scholarships, and internships",
+              "Wants to build an international professional network"
+            ]
+          },
+          {
+            title: "🎉 The Social Bee",
+            items: [
+              "Loves meeting students from all over the world",
+              "Frequently goes to cafés, clubs, and student events",
+              "Active in campus life and student associations"
+            ]
+          }
+        ],
+        universities: [
+          {
+            name: "University of Melbourne",
+            strengths: "Ranked among the world's best, vibrant campus, wide range of programs, strong student support.",
+            link: "https://www.unimelb.edu.au/"
+          },
+          {
+            name: "Monash University",
+            strengths: "Excellent research reputation, modern campuses, many international opportunities, lively student life.",
+            link: "https://www.monash.edu/"
+          },
+          {
+            name: "RMIT University",
+            strengths: "Specialized in innovation, engineering, and design, city-center campus, strong industry links.",
+            link: "https://www.rmit.edu.au/"
+          },
+          {
+            name: "Swinburne University of Technology",
+            strengths: "Great for IT, engineering, and design, practical approach, welcoming campus.",
+            link: "https://www.swinburne.edu.au/"
+          }
+        ],
+        testimonials: [
+          {
+            name: "Kyota – Swinburne University",
+            text: "Australian professors love talking with international students, you feel integrated quickly. The workload is heavier than in France, but you have more free time. I loved the multicultural atmosphere and weekend trips.",
+            link: "https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/",
+            linkText: "Read the full testimonial"
+          },
+          {
+            name: "Céline – University of Melbourne",
+            text: "The campus is huge, everything is available: pharmacy, bank, snacks, libraries... The university offers a lot of help for settling in and finding accommodation. I met students from all over the world, it's very enriching.",
+            link: "https://www.studyexperience.fr/mes-etudes-a-melbourne/",
+            linkText: "Read the full testimonial"
+          },
+          {
+            name: "Mody – University of Melbourne",
+            text: "The University of Melbourne offers free shuttles for newcomers, well-located student housing, and many events to help you integrate. The city is very diverse and great for international encounters.",
+            link: "https://international.pantheonsorbonne.fr/sites/default/files/2023-02/Mody_Australie_0.pdf",
+            linkText: "Read the full testimonial (PDF)"
+          },
+          {
+            name: "Élodie – Language stay in Melbourne",
+            text: "I chose Melbourne for its vibe, dynamic neighborhoods, and its reputation as the most livable city in the world. The people you meet and the life there are unforgettable.",
+            link: "https://www.voyage-langue.com/blog/temoignages/temoignage-elodie-sejour-melbourne/",
+            linkText: "Read the full testimonial"
+          },
+          {
+            name: "Sophie – Exchange in Melbourne",
+            text: "I loved the student life, easy integration, and the opportunities to discover the city and its surroundings.",
+            link: "https://www.youtube.com/watch?v=6WwcqVdUN1o",
+            linkText: "Watch the video testimonial"
+          }
+        ]
+      },
+      fr: {
+        title: "Étudier à Melbourne",
+        tabTitles: ["Profils d’étudiants", "Universités de Melbourne", "Témoignages d’étudiants"],
+        profiles: [
+          {
+            title: "🌏 L’Explorateur",
+            items: [
+              "Découvre la culture locale et les quartiers branchés",
+              "Participe à des excursions et explore la nature autour de Melbourne",
+              "Adore les sorties le weekend (Great Ocean Road, St Kilda...)"
+            ]
+          },
+          {
+            title: "🎓 L’Ambitieux",
+            items: [
+              "Passionné par la réussite académique",
+              "Intéressé par les classements, les bourses et les stages",
+              "Veut se construire un réseau professionnel international"
+            ]
+          },
+          {
+            title: "🎉 Le Socialisateur",
+            items: [
+              "Adore rencontrer des étudiants du monde entier",
+              "Sort souvent dans les cafés, clubs et événements étudiants",
+              "Participe à la vie associative et aux soirées du campus"
+            ]
+          }
+        ],
+        universities: [
+          {
+            name: "University of Melbourne",
+            strengths: "Classée parmi les meilleures universités du monde, campus dynamique, large choix de filières, forte aide à l’intégration.",
+            link: "https://www.unimelb.edu.au/"
+          },
+          {
+            name: "Monash University",
+            strengths: "Excellente réputation en recherche, campus modernes, nombreuses opportunités internationales, vie étudiante très animée.",
+            link: "https://www.monash.edu/"
+          },
+          {
+            name: "RMIT University",
+            strengths: "Spécialisée dans l’innovation, l’ingénierie et le design, campus en plein centre-ville, liens forts avec les entreprises.",
+            link: "https://www.rmit.edu.au/"
+          },
+          {
+            name: "Swinburne University of Technology",
+            strengths: "Excellente pour l’informatique, l’ingénierie et le design, approche pratique des études, campus accueillant.",
+            link: "https://www.swinburne.edu.au/"
+          }
+        ],
+        testimonials: [
+          {
+            name: "Kyota – Swinburne University",
+            text: "Les professeurs australiens adorent parler avec des étudiants étrangers, on se sent très vite intégré. Le travail demandé est plus chronophage qu’en France, mais on a plus de temps libre. J’ai adoré l’ambiance multiculturelle et les excursions le week-end.",
+            link: "https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/",
+            linkText: "Lire le témoignage complet"
+          },
+          {
+            name: "Céline – University of Melbourne",
+            text: "Le campus est immense, tout est à disposition : pharmacie, banque, snacks, bibliothèques… L’université propose beaucoup d’aide pour s’installer et se loger. J’ai rencontré des étudiants du monde entier, c’est très enrichissant.",
+            link: "https://www.studyexperience.fr/mes-etudes-a-melbourne/",
+            linkText: "Lire le témoignage complet"
+          },
+          {
+            name: "Mody – University of Melbourne",
+            text: "L’université de Melbourne propose des navettes gratuites pour les nouveaux arrivants, des logements étudiants bien situés, et de nombreux événements pour s’intégrer. La ville est très diverse et propice aux rencontres internationales.",
+            link: "https://international.pantheonsorbonne.fr/sites/default/files/2023-02/Mody_Australie_0.pdf",
+            linkText: "Lire le témoignage complet (PDF)"
+          },
+          {
+            name: "Élodie – Séjour linguistique à Melbourne",
+            text: "J’ai choisi Melbourne pour son ambiance, ses quartiers dynamiques et sa réputation de ville la plus agréable à vivre au monde. Les rencontres et la vie sur place sont inoubliables.",
+            link: "https://www.voyage-langue.com/blog/temoignages/temoignage-elodie-sejour-melbourne/",
+            linkText: "Lire le témoignage complet"
+          },
+          {
+            name: "Sophie – Échange à Melbourne",
+            text: "J’ai adoré la vie étudiante, l’intégration facile, et les possibilités de découvrir la ville et ses environs.",
+            link: "https://www.youtube.com/watch?v=6WwcqVdUN1o",
+            linkText: "Voir le témoignage vidéo"
+          }
+        ]
+      },
+      ru: {
+        title: "Учёба в Мельбурне",
+        tabTitles: ["Профили студентов", "Университеты Мельбурна", "Отзывы студентов"],
+        profiles: [
+          {
+            title: "🌏 Исследователь",
+            items: [
+              "Открывает для себя местную культуру и модные районы",
+              "Любит экскурсии и исследует природу вокруг Мельбурна",
+              "Обожает поездки на выходных (Great Ocean Road, St Kilda...)"
+            ]
+          },
+          {
+            title: "🎓 Целеустремлённый",
+            items: [
+              "Стремится к академическому успеху",
+              "Интересуется рейтингами, стипендиями и стажировками",
+              "Хочет построить международную профессиональную сеть"
+            ]
+          },
+          {
+            title: "🎉 Общительный",
+            items: [
+              "Любит встречать студентов со всего мира",
+              "Часто посещает кафе, клубы и студенческие мероприятия",
+              "Активно участвует в жизни кампуса"
+            ]
+          }
+        ],
+        universities: [
+          {
+            name: "University of Melbourne",
+            strengths: "Входит в число лучших университетов мира, оживлённый кампус, широкий выбор программ, сильная поддержка студентов.",
+            link: "https://www.unimelb.edu.au/"
+          },
+          {
+            name: "Monash University",
+            strengths: "Отличная исследовательская репутация, современные кампусы, множество международных возможностей, насыщенная студенческая жизнь.",
+            link: "https://www.monash.edu/"
+          },
+          {
+            name: "RMIT University",
+            strengths: "Специализация на инновациях, инженерии и дизайне, кампус в центре города, тесные связи с индустрией.",
+            link: "https://www.rmit.edu.au/"
+          },
+          {
+            name: "Swinburne University of Technology",
+            strengths: "Сильна в IT, инженерии и дизайне, практический подход, дружелюбный кампус.",
+            link: "https://www.swinburne.edu.au/"
+          }
+        ],
+        testimonials: [
+          {
+            name: "Киота – Swinburne University",
+            text: "Австралийские преподаватели любят общаться с иностранными студентами, быстро чувствуешь себя частью коллектива. Учёба более трудоёмкая, чем во Франции, но свободного времени больше. Мне понравилась мультикультурная атмосфера и поездки на выходных.",
+            link: "https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/",
+            linkText: "Читать полный отзыв"
+          },
+          {
+            name: "Селин – University of Melbourne",
+            text: "Кампус огромный, есть всё: аптека, банк, закусочные, библиотеки... Университет очень помогает с адаптацией и поиском жилья. Я познакомилась со студентами со всего мира – это очень обогащает.",
+            link: "https://www.studyexperience.fr/mes-etudes-a-melbourne/",
+            linkText: "Читать полный отзыв"
+          },
+          {
+            name: "Моди – University of Melbourne",
+            text: "Университет Мельбурна предлагает бесплатные шаттлы для новичков, хорошие общежития и множество мероприятий для интеграции. Город очень разнообразный и открыт для международного общения.",
+            link: "https://international.pantheonsorbonne.fr/sites/default/files/2023-02/Mody_Australie_0.pdf",
+            linkText: "Читать полный отзыв (PDF)"
+          },
+          {
+            name: "Элоди – Языковая стажировка в Мельбурне",
+            text: "Я выбрала Мельбурн за его атмосферу, динамичные районы и репутацию самого комфортного для жизни города. Знакомства и жизнь там незабываемы.",
+            link: "https://www.voyage-langue.com/blog/temoignages/temoignage-elodie-sejour-melbourne/",
+            linkText: "Читать полный отзыв"
+          },
+          {
+            name: "Софи – Обмен в Мельбурне",
+            text: "Мне понравилась студенческая жизнь, лёгкая интеграция и возможности для знакомства с городом и его окрестностями.",
+            link: "https://www.youtube.com/watch?v=6WwcqVdUN1o",
+            linkText: "Смотреть видеоотзыв"
+          }
+        ]
+      },
+      pl: {
+        title: "Studiuj w Melbourne",
+        tabTitles: ["Profile studentów", "Uniwersytety w Melbourne", "Opinie studentów"],
+        profiles: [
+          {
+            title: "🌏 Odkrywca",
+            items: [
+              "Odkrywa lokalną kulturę i modne dzielnice",
+              "Uwielbia wycieczki i zwiedzanie natury wokół Melbourne",
+              "Lubi weekendowe wypady (Great Ocean Road, St Kilda...)"
+            ]
+          },
+          {
+            title: "🎓 Ambitny",
+            items: [
+              "Zorientowany na sukces akademicki",
+              "Zainteresowany rankingami, stypendiami i praktykami",
+              "Chce budować międzynarodową sieć zawodową"
+            ]
+          },
+          {
+            title: "🎉 Dusza Towarzystwa",
+            items: [
+              "Uwielbia poznawać studentów z całego świata",
+              "Często bywa w kawiarniach, klubach i na wydarzeniach studenckich",
+              "Aktywnie uczestniczy w życiu kampusu i stowarzyszeniach"
+            ]
+          }
+        ],
+        universities: [
+          {
+            name: "University of Melbourne",
+            strengths: "Jedna z najlepszych uczelni na świecie, dynamiczny kampus, szeroki wybór kierunków, duże wsparcie dla studentów.",
+            link: "https://www.unimelb.edu.au/"
+          },
+          {
+            name: "Monash University",
+            strengths: "Świetna reputacja naukowa, nowoczesne kampusy, wiele możliwości międzynarodowych, bogate życie studenckie.",
+            link: "https://www.monash.edu/"
+          },
+          {
+            name: "RMIT University",
+            strengths: "Specjalizacja w innowacjach, inżynierii i designie, kampus w centrum miasta, silne powiązania z przemysłem.",
+            link: "https://www.rmit.edu.au/"
+          },
+          {
+            name: "Swinburne University of Technology",
+            strengths: "Świetna dla IT, inżynierii i designu, praktyczne podejście, przyjazny kampus.",
+            link: "https://www.swinburne.edu.au/"
+          }
+        ],
+        testimonials: [
+          {
+            name: "Kyota – Swinburne University",
+            text: "Australijscy wykładowcy uwielbiają rozmawiać z zagranicznymi studentami, szybko czujesz się częścią społeczności. Nauka jest bardziej czasochłonna niż we Francji, ale jest więcej wolnego czasu. Uwielbiałem wielokulturową atmosferę i weekendowe wycieczki.",
+            link: "https://www.studiesup.com/un-semestre-a-melbourne-le-temoignage-de-kyota/",
+            linkText: "Przeczytaj pełne świadectwo"
+          },
+          {
+            name: "Céline – University of Melbourne",
+            text: "Kampus jest ogromny, wszystko jest dostępne: apteka, bank, przekąski, biblioteki... Uniwersytet bardzo pomaga w osiedleniu się i znalezieniu zakwaterowania. Poznałam studentów z całego świata, to bardzo wzbogacające.",
+            link: "https://www.studyexperience.fr/mes-etudes-a-melbourne/",
+            linkText: "Przeczytaj pełne świadectwo"
+          },
+          {
+            name: "Mody – University of Melbourne",
+            text: "Uniwersytet w Melbourne oferuje bezpłatne autobusy dla nowych studentów, dobrze położone akademiki i wiele wydarzeń integracyjnych. Miasto jest bardzo różnorodne i sprzyja międzynarodowym znajomościom.",
+            link: "https://international.pantheonsorbonne.fr/sites/default/files/2023-02/Mody_Australie_0.pdf",
+            linkText: "Przeczytaj pełne świadectwo (PDF)"
+          },
+          {
+            name: "Élodie – Kurs językowy w Melbourne",
+            text: "Wybrałam Melbourne ze względu na atmosferę, dynamiczne dzielnice i reputację najbardziej przyjaznego miasta do życia na świecie. Ludzie, których poznałam i życie tam są niezapomniane.",
+            link: "https://www.voyage-langue.com/blog/temoignages/temoignage-elodie-sejour-melbourne/",
+            linkText: "Przeczytaj pełne świadectwo"
+          },
+          {
+            name: "Sophie – Wymiana w Melbourne",
+            text: "Uwielbiałam życie studenckie, łatwą integrację i możliwości odkrywania miasta i okolic.",
+            link: "https://www.youtube.com/watch?v=6WwcqVdUN1o",
+            linkText: "Zobacz świadectwo wideo"
+          }
+        ]
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      // Active button
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+      // Update all
+      const t = translations[lang];
+      document.getElementById('title').textContent = t.title;
+      // Tabs
+      t.tabTitles.forEach((tab, i) => {
+        document.getElementById('tab-title-' + (i + 1)).textContent = tab;
+      });
+      // Profiles
+      t.profiles.forEach((profile, i) => {
+        document.getElementById('profile' + (i + 1) + '-title').textContent = profile.title;
+        const ul = document.getElementById('profile' + (i + 1) + '-list');
+        ul.innerHTML = "";
+        profile.items.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+      });
+      // Universities
+      const univList = document.getElementById('univ-list');
+      univList.innerHTML = "";
+      t.universities.forEach(u => {
+        const li = document.createElement('li');
+        li.className = "univ-item";
+        li.innerHTML = `<strong>${u.name}</strong><br>
+          <em>${t.tabTitles[1]}:</em> ${u.strengths}<br>
+          <a href="${u.link}" target="_blank">${lang === 'fr' ? 'Site officiel' : lang === 'ru' ? 'Официальный сайт' : lang === 'pl' ? 'Oficjalna strona' : 'Official website'}</a>`;
+        univList.appendChild(li);
+      });
+      // Testimonials
+      const testDiv = document.getElementById('testimonials');
+      testDiv.innerHTML = "";
+      t.testimonials.forEach(test => {
+        const div = document.createElement('div');
+        div.className = "temoignage";
+        div.innerHTML = `<strong>${test.name}</strong><br>
+          ${test.text}<br>
+          <a href="${test.link}" target="_blank">${test.linkText}</a>`;
+        testDiv.appendChild(div);
+      });
+    }
+
     function showTab(idx) {
       document.querySelectorAll('.tab-btn').forEach((btn, i) => {
         btn.classList.toggle('active', i === idx);
@@ -139,6 +480,9 @@
         tab.classList.toggle('active', i === idx);
       });
     }
+
+    // Initialisation
+    setLang('en');
   </script>
 </body>
 </html>
